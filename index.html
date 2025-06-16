@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Музыкальный сайт</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/feather-icons"></script>
+  <style>
+    :root {
+      --bg-color: #111;
+      --text-color: #eee;
+      --accent-color: #ffd93d;
+      --card-color: #1a1a1a;
+      --hover-color: #222;
+    }
+
+    [data-theme="light"] {
+      --bg-color: #f7f7f7;
+      --text-color: #111;
+      --accent-color: #ffd93d;
+      --card-color: #fff;
+      --hover-color: #eee;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      transition: background 0.4s, color 0.4s;
+    }
+
+    header {
+      padding: 2rem;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .toggle-theme {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: 2px solid var(--accent-color);
+      color: var(--accent-color);
+      border-radius: 50%;
+      padding: 0.5rem;
+      cursor: pointer;
+    }
+
+    .track-list {
+      display: grid;
+      gap: 1.5rem;
+      padding: 0 2rem;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .track {
+      background: var(--card-color);
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: background 0.3s;
+    }
+
+    .track:hover {
+      background: var(--hover-color);
+    }
+
+    iframe {
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+      height: 200px;
+    }
+
+    .btn {
+      display: block;
+      margin: 2rem auto;
+      padding: 1rem 2rem;
+      background: var(--accent-color);
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      padding: 2rem;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <button class="toggle-theme" onclick="toggleTheme()" title="Сменить тему">
+    <i data-feather="sun"></i>
+  </button>
+
+  <header>
+    <h1>🎵 Музыка без границ</h1>
+    <p>10 бесплатных треков + эксклюзив после поддержки</p>
+    <div style="font-size: 2rem; margin-top: 1rem; color: var(--accent-color);">↓</div>
+  </header>
+
+  <main class="track-list" id="free-tracks">
+    <div class="track">
+      <iframe src="https://www.youtube.com/embed/kXYiU_JCYtU" allowfullscreen></iframe>
+    </div>
+    <div class="track">
+      <iframe src="https://www.youtube.com/embed/3YxaaGgTQYM" allowfullscreen></iframe>
+    </div>
+  </main>
+
+  <button class="btn" onclick="showPremium10()">🔓 Ещё 10 треков — 10₽</button>
+  <div id="premium10" class="track-list" style="display: none;">
+    <div class="track">
+      <iframe src="https://www.youtube.com/embed/Zi_XLOBDo_Y" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <button class="btn" onclick="showPremium100()">🔓 100 треков — 49₽</button>
+  <div id="premium100" class="track-list" style="display: none;">
+    <div class="track">
+      <iframe src="https://www.youtube.com/embed/eVTXPUF4Oz4" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <footer>© 2025 Музыкальный сайт. Все видео легально встроены с YouTube.</footer>
+
+  <script>
+    feather.replace();
+
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', nextTheme);
+    }
+
+    function showPremium10() {
+      document.getElementById('premium10').style.display = 'grid';
+    }
+
+    function showPremium100() {
+      document.getElementById('premium100').style.display = 'grid';
+    }
+  </script>
+</body>
+</html>
