@@ -143,21 +143,37 @@
   <footer>© 2025 Музыкальный сайт. Все видео легально встроены с YouTube.</footer>
 
   <script>
-    feather.replace();
+  feather.replace();
 
-    function toggleTheme() {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
-      document.documentElement.setAttribute('data-theme', nextTheme);
-    }
+  function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', nextTheme);
+  }
 
-    function showPremium10() {
+  const password10 = "access10"; // пароль для 10 треков
+  const password100 = "access100"; // пароль для 100 треков
+
+  function showPremium10() {
+    const input = prompt("Введите пароль для доступа к 10 трекам:");
+    if (input === password10) {
       document.getElementById('premium10').style.display = 'grid';
+      alert("Доступ открыт к 10 трекам!");
+    } else {
+      alert("Неверный пароль!");
     }
+  }
 
-    function showPremium100() {
+  function showPremium100() {
+    const input = prompt("Введите пароль для доступа к 100 трекам:");
+    if (input === password100) {
       document.getElementById('premium100').style.display = 'grid';
+      alert("Доступ открыт к 100 трекам!");
+    } else {
+      alert("Неверный пароль!");
     }
-  </script>
+  }
+</script>
+
 </body>
 </html>
