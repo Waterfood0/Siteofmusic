@@ -82,7 +82,7 @@
 
     .btn {
       display: block;
-      margin: 2rem auto;
+      margin: 1.5rem auto 0.5rem;
       padding: 1rem 2rem;
       background: var(--accent-color);
       color: #000;
@@ -96,6 +96,33 @@
 
     .btn:hover {
       transform: scale(1.05);
+    }
+
+    .btn.small {
+      padding: 0.6rem 1.2rem;
+      font-size: 0.95rem;
+      margin-left: 0.5rem;
+    }
+
+    .password-block {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 1rem auto;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      max-width: 400px;
+    }
+
+    .password-input {
+      padding: 0.75rem 1rem;
+      border: 2px solid var(--accent-color);
+      border-radius: 8px;
+      background: transparent;
+      color: var(--text-color);
+      font-size: 1rem;
+      outline: none;
+      min-width: 200px;
     }
 
     footer {
@@ -126,14 +153,22 @@
     </div>
   </main>
 
-  <button class="btn" onclick="showPremium10()">🔓 Ещё 10 треков — 10₽</button>
+  <button class="btn">🔓 Ещё 10 треков — 10₽</button>
+  <div class="password-block">
+    <input id="input10" class="password-input" placeholder="Пароль для 10 треков">
+    <button class="btn small" onclick="checkPassword10()">Ввести</button>
+  </div>
   <div id="premium10" class="track-list" style="display: none;">
     <div class="track">
       <iframe src="https://www.youtube.com/embed/Zi_XLOBDo_Y" allowfullscreen></iframe>
     </div>
   </div>
 
-  <button class="btn" onclick="showPremium100()">🔓 100 треков — 49₽</button>
+  <button class="btn">🔓 100 треков — 49₽</button>
+  <div class="password-block">
+    <input id="input100" class="password-input" placeholder="Пароль для 100 треков">
+    <button class="btn small" onclick="checkPassword100()">Ввести</button>
+  </div>
   <div id="premium100" class="track-list" style="display: none;">
     <div class="track">
       <iframe src="https://www.youtube.com/embed/eVTXPUF4Oz4" allowfullscreen></iframe>
@@ -143,37 +178,34 @@
   <footer>© 2025 Музыкальный сайт. Все видео легально встроены с YouTube.</footer>
 
   <script>
-  feather.replace();
+    feather.replace();
 
-  function toggleTheme() {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
-    document.documentElement.setAttribute('data-theme', nextTheme);
-  }
-
-  const password10 = "access10"; // пароль для 10 треков
-  const password100 = "access100"; // пароль для 100 треков
-
-  function showPremium10() {
-    const input = prompt("Введите пароль для доступа к 10 трекам:");
-    if (input === password10) {
-      document.getElementById('premium10').style.display = 'grid';
-      alert("Доступ открыт к 10 трекам!");
-    } else {
-      alert("Неверный пароль!");
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', nextTheme);
     }
-  }
 
-  function showPremium100() {
-    const input = prompt("Введите пароль для доступа к 100 трекам:");
-    if (input === password100) {
-      document.getElementById('premium100').style.display = 'grid';
-      alert("Доступ открыт к 100 трекам!");
-    } else {
-      alert("Неверный пароль!");
+    const password10 = "access10";
+    const password100 = "access100";
+
+    function checkPassword10() {
+      const input = document.getElementById("input10").value.trim();
+      if (input === password10) {
+        document.getElementById("premium10").style.display = "grid";
+      } else {
+        alert("Неверный пароль для 10 треков.");
+      }
     }
-  }
-</script>
 
+    function checkPassword100() {
+      const input = document.getElementById("input100").value.trim();
+      if (input === password100) {
+        document.getElementById("premium100").style.display = "grid";
+      } else {
+        alert("Неверный пароль для 100 треков.");
+      }
+    }
+  </script>
 </body>
 </html>
