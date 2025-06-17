@@ -80,37 +80,17 @@
       height: 200px;
     }
 
-    .input-group {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 0.5rem;
-      margin: 2rem auto;
-      max-width: 500px;
-      flex-wrap: wrap;
-    }
-
-    .password-input {
-      flex: 1;
-      padding: 0.75rem 1rem;
-      border: 2px solid var(--accent-color);
-      border-radius: 8px;
-      background: transparent;
-      color: var(--text-color);
-      font-size: 1rem;
-      min-width: 200px;
-    }
-
     .btn {
-      padding: 0.75rem 1.5rem;
       background: var(--accent-color);
       color: #000;
       border: none;
       border-radius: 8px;
-      font-size: 1rem;
+      padding: 0.8rem 1.5rem;
       font-weight: bold;
       cursor: pointer;
       transition: transform 0.2s;
+      text-decoration: none;
+      display: inline-block;
     }
 
     .btn:hover {
@@ -136,7 +116,7 @@
     <div style="font-size: 2rem; margin-top: 1rem; color: var(--accent-color);">↓</div>
   </header>
 
-  <main class="track-list" id="free-tracks">
+  <main class="track-list">
     <div class="track">
       <iframe src="https://www.youtube.com/embed/kXYiU_JCYtU" allowfullscreen></iframe>
     </div>
@@ -145,22 +125,34 @@
     </div>
   </main>
 
-  <div class="input-group">
-    <input id="passwordInput" class="password-input" placeholder="Введите пароль для доступа к трекам" />
-    <button class="btn" onclick="checkPassword()">Открыть</button>
-  </div>
+  <section style="padding: 3rem 1rem; text-align: center;">
+    <h2 style="font-size: 1.7rem; margin-bottom: 1.5rem;">🎁 После поддержки — доступ к дополнительным трекам</h2>
 
-  <div id="premium10" class="track-list" style="display: none;">
-    <div class="track">
-      <iframe src="https://www.youtube.com/embed/Zi_XLOBDo_Y" allowfullscreen></iframe>
+    <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+      <a href="https://boosty.to/yourname/donate/10" target="_blank" class="btn">10 треков — 10₽</a>
+      <a href="https://boosty.to/yourname/donate/49" target="_blank" class="btn">100 треков — 49₽</a>
     </div>
-  </div>
 
-  <div id="premium100" class="track-list" style="display: none;">
-    <div class="track">
-      <iframe src="https://www.youtube.com/embed/eVTXPUF4Oz4" allowfullscreen></iframe>
+    <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem;">
+      <input id="passwordInput" placeholder="🔑 Введите пароль после оплаты" style="padding: 0.8rem 1rem; border: 2px solid var(--accent-color); border-radius: 8px; background: var(--card-color); color: var(--text-color); min-width: 250px;" />
+      <button class="btn" onclick="checkPassword()">Открыть</button>
     </div>
-  </div>
+
+    <div id="premium10" class="track-list" style="display: none;">
+      <div class="track">
+        <iframe src="https://www.youtube.com/embed/Zi_XLOBDo_Y" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <div id="premium100" class="track-list" style="display: none; margin-top: 2rem;">
+      <div class="track">
+        <iframe src="https://www.youtube.com/embed/eVTXPUF4Oz4" allowfullscreen></iframe>
+      </div>
+      <div class="track">
+        <iframe src="https://www.youtube.com/embed/fLexgOxsZu0" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
 
   <footer>© 2025 Музыкальный сайт. Все видео легально встроены с YouTube.</footer>
 
@@ -177,17 +169,16 @@
     const password100 = "access100";
 
     function checkPassword() {
-      const input = document.getElementById("passwordInput").value.trim();
+      const input = document.getElementById('passwordInput').value.trim();
 
       if (input === password10) {
-        document.getElementById("premium10").style.display = "grid";
-        alert("Открыто 10 дополнительных треков!");
+        document.getElementById('premium10').style.display = 'grid';
+        alert("✅ Открыт доступ к 10 трекам!");
       } else if (input === password100) {
-        document.getElementById("premium100").style.display = "grid";
-        document.getElementById("premium10").style.display = "grid";
-        alert("Открыто 100 треков (включая первые 10)!");
+        document.getElementById('premium100').style.display = 'grid';
+        alert("✅ Открыт доступ к 100 трекам!");
       } else {
-        alert("Неверный пароль.");
+        alert("❌ Неверный пароль. Проверьте и попробуйте снова.");
       }
     }
   </script>
