@@ -2,9 +2,9 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Музыкальный сайт</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/feather-icons"></script>
   <style>
     :root {
@@ -29,11 +29,15 @@
       background: var(--bg-color);
       color: var(--text-color);
       transition: background 0.4s, color 0.4s;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     header {
       padding: 2rem;
       text-align: center;
+      position: relative;
     }
 
     h1 {
@@ -51,14 +55,22 @@
       border-radius: 50%;
       padding: 0.5rem;
       cursor: pointer;
+      transition: color 0.3s, border-color 0.3s;
+    }
+
+    .toggle-theme:hover {
+      color: #fff;
+      border-color: #fff;
     }
 
     .track-list {
       display: grid;
       gap: 1.5rem;
-      padding: 0 2rem;
+      padding: 0 2rem 3rem;
       max-width: 800px;
       margin: auto;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .track {
@@ -78,6 +90,8 @@
       border: none;
       border-radius: 8px;
       height: 200px;
+      display: block;
+      background: #000; /* placeholder bg while loading */
     }
 
     .btn {
@@ -102,11 +116,49 @@
       font-size: 0.9rem;
       padding: 2rem;
       color: #888;
+      margin-top: auto;
+    }
+
+    input#passwordInput {
+      padding: 0.8rem 1rem;
+      border: 2px solid var(--accent-color);
+      border-radius: 8px;
+      background: var(--card-color);
+      color: var(--text-color);
+      min-width: 250px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+
+    section {
+      padding: 3rem 1rem;
+      text-align: center;
+    }
+
+    section h2 {
+      font-size: 1.7rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .input-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
     }
   </style>
 </head>
 <body>
-  <button class="toggle-theme" onclick="toggleTheme()" title="Сменить тему">
+  <button class="toggle-theme" onclick="toggleTheme()" title="Сменить тему" aria-label="Сменить тему">
     <i data-feather="sun"></i>
   </button>
 
@@ -116,365 +168,259 @@
     <div style="font-size: 2rem; margin-top: 1rem; color: var(--accent-color);">↓</div>
   </header>
 
-<main class="track-list">
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/PNtPRhhosks" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/uiPM4QToPBA" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/KshMiwVujhM" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/C7llWWcpRv4" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/bdGOGqkN6Po" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/HTbY88UGxmA" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/wVa3YxGC4ww" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/sSaU0TzsQ4c" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/c-eBWR_Mzbo" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/kozdwLTP92M" allowfullscreen></iframe>
-  </div>
-</main>
+  <main class="track-list" id="freeTracks">
+    <div class="track">
+      <iframe data-src="https://www.youtube.com/embed/PNtPRhhosks" loading="lazy" allowfullscreen></iframe>
+    </div>
+    <div class="track">
+      <iframe data-src="https://www.youtube.com/embed/uiPM4QToPBA" loading="lazy" allowfullscreen></iframe>
+    </div>
+    <div class="track">
+      <iframe data-src="https://www.youtube.com/embed/KshMiwVujhM" loading="lazy" allowfullscreen></iframe>
+    </div>
+    <div class="track">
+      <iframe data-src="https://www.youtube.com/embed/C7llWWcpRv4" loading="lazy" allowfullscreen></iframe>
+    </div>
+    <div class="track">
+      <iframe data-src="https://www.youtube.com/embed/bdGOGqkN6Po" loading="lazy" allowfullscreen></iframe>
+    </div>
+    <div class="track">
+      <iframe data-src="https://www.youtube.com/embed/HTbY88UGxmA" loading="lazy" allowfullscreen></iframe>
+    </div>
+    <div class="track">
+      <iframe data-src="https://www.youtube.com/embed/wVa3YxGC4ww" loading="lazy" allowfullscreen></iframe>
+    </div>
+    <div class="track">
+      <iframe data-src="https://www.youtube.com/embed/sSaU0TzsQ4c" loading="lazy" allowfullscreen></iframe>
+    </div>
+    <div class="track">
+      <iframe data-src="https://www.youtube.com/embed/c-eBWR_Mzbo" loading="lazy" allowfullscreen></iframe>
+    </div>
+    <div class="track">
+      <iframe data-src="https://www.youtube.com/embed/kozdwLTP92M" loading="lazy" allowfullscreen></iframe>
+    </div>
+  </main>
 
+  <section>
+    <h2>🎁 После поддержки — доступ к дополнительным трекам</h2>
 
-
-
-  <section style="padding: 3rem 1rem; text-align: center;">
-    <h2 style="font-size: 1.7rem; margin-bottom: 1.5rem;">🎁 После поддержки — доступ к дополнительным трекам</h2>
-
-    <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
-      <a href="https://pay.cloudtips.ru/p/4ac79ec9" target="_blank" class="btn">10 треков — 69₽</a>
-      <a href="https://pay.cloudtips.ru/p/42f288f0" target="_blank" class="btn">100 треков — 149₽</a>
+    <div class="btn-container">
+      <a href="https://pay.cloudtips.ru/p/4ac79ec9" target="_blank" class="btn" rel="noopener noreferrer">10 треков — 69₽</a>
+      <a href="https://pay.cloudtips.ru/p/42f288f0" target="_blank" class="btn" rel="noopener noreferrer">100 треков — 149₽</a>
     </div>
 
-    <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem;">
-      <input id="passwordInput" placeholder="🔑 Введите пароль после оплаты" style="padding: 0.8rem 1rem; border: 2px solid var(--accent-color); border-radius: 8px; background: var(--card-color); color: var(--text-color); min-width: 250px;" />
+    <div class="input-container">
+      <input
+        id="passwordInput"
+        placeholder="🔑 Введите пароль после оплаты"
+        aria-label="Введите пароль после оплаты"
+      />
       <button class="btn" onclick="checkPassword()">Открыть</button>
     </div>
 
     <div id="premium10" class="track-list" style="display: none;">
+      <div class="track">
+        <iframe data-src="https://www.youtube.com/embed/2Vv-BfVoq4g" loading="lazy" allowfullscreen></iframe>
+      </div>
+      <div class="track">
+        <iframe data-src="https://www.youtube.com/embed/JGwWNGJdvx8" loading="lazy" allowfullscreen></iframe>
+      </div>
+      <div class="track">
+        <iframe data-src="https://www.youtube.com/embed/e-ORhEE9VVg" loading="lazy" allowfullscreen></iframe>
+      </div>
+      <div class="track">
+        <iframe data-src="https://www.youtube.com/embed/hLQl3WQQoQ0" loading="lazy" allowfullscreen></iframe>
+      </div>
+      <div class="track">
+        <iframe data-src="https://www.youtube.com/embed/60ItHLz5WEA" loading="lazy" allowfullscreen></iframe>
+      </div>
+      <div class="track">
+        <iframe data-src="https://www.youtube.com/embed/pRpeEdMmmQ0" loading="lazy" allowfullscreen></iframe>
+      </div>
+      <div class="track">
+        <iframe data-src="https://www.youtube.com/embed/NLZRYQMLDW4" loading="lazy" allowfullscreen></iframe>
+      </div>
+      <div class="track">
+        <iframe data-src="https://www.youtube.com/embed/hT_nvWreIhg" loading="lazy" allowfullscreen></iframe>
+      </div>
+      <div class="track">
+        <iframe data-src="https://www.youtube.com/embed/kJQP7kiw5Fk" loading="lazy" allowfullscreen></iframe>
+      </div>
+      <div class="track">
+        <iframe data-src="https://www.youtube.com/embed/OPf0YbXqDm0" loading="lazy" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <div id="premium100" class="track-list" style="display: none;">
+      <div id="premium100" class="track-list" style="display: none;">
   <div class="track">
-    <iframe src="https://www.youtube.com/embed/2Vv-BfVoq4g" allowfullscreen></iframe>
+    <iframe data-src="https://www.youtube.com/embed/_z7RrN5W5fw" loading="lazy" allowfullscreen></iframe>
   </div>
   <div class="track">
-    <iframe src="https://www.youtube.com/embed/JGwWNGJdvx8" allowfullscreen></iframe>
+    <iframe data-src="https://www.youtube.com/embed/jFjcZogSC1o" loading="lazy" allowfullscreen></iframe>
   </div>
   <div class="track">
-    <iframe src="https://www.youtube.com/embed/e-ORhEE9VVg" allowfullscreen></iframe>
+    <iframe data-src="https://www.youtube.com/embed/VkXYHtxOjMk" loading="lazy" allowfullscreen></iframe>
   </div>
   <div class="track">
-    <iframe src="https://www.youtube.com/embed/hLQl3WQQoQ0" allowfullscreen></iframe>
+    <iframe data-src="https://www.youtube.com/embed/h_EC0Gj7zxQ" loading="lazy" allowfullscreen></iframe>
   </div>
   <div class="track">
-    <iframe src="https://www.youtube.com/embed/60ItHLz5WEA" allowfullscreen></iframe>
+    <iframe data-src="https://www.youtube.com/embed/RKgPm-xtNZ0" loading="lazy" allowfullscreen></iframe>
   </div>
   <div class="track">
-    <iframe src="https://www.youtube.com/embed/pRpeEdMmmQ0" allowfullscreen></iframe>
+    <iframe data-src="https://www.youtube.com/embed/O2-eHoJmSsc" loading="lazy" allowfullscreen></iframe>
   </div>
   <div class="track">
-    <iframe src="https://www.youtube.com/embed/kJQP7kiw5Fk" allowfullscreen></iframe>
+    <iframe data-src="https://www.youtube.com/embed/kJ7P8xKkj0c" loading="lazy" allowfullscreen></iframe>
   </div>
   <div class="track">
-    <iframe src="https://www.youtube.com/embed/YQHsXMglC9A" allowfullscreen></iframe>
+    <iframe data-src="https://www.youtube.com/embed/z7b-jSLEqAE" loading="lazy" allowfullscreen></iframe>
   </div>
   <div class="track">
-    <iframe src="https://www.youtube.com/embed/CevxZvSJLk8" allowfullscreen></iframe>
+    <iframe data-src="https://www.youtube.com/embed/Dtg_HRxA0Oc" loading="lazy" allowfullscreen></iframe>
   </div>
   <div class="track">
-    <iframe src="https://www.youtube.com/embed/09R8_2nJtjg" allowfullscreen></iframe>
+    <iframe data-src="https://www.youtube.com/embed/0HyUz4y5QIU" loading="lazy" allowfullscreen></iframe>
+  </div>
+
+  <div class="track">
+    <iframe data-src="https://www.youtube.com/embed/cH2VfQFtK2s" loading="lazy" allowfullscreen></iframe>
+  </div>
+  <div class="track">
+    <iframe data-src="https://www.youtube.com/embed/IXOzrN3NL-U" loading="lazy" allowfullscreen></iframe>
+  </div>
+  <div class="track">
+    <iframe data-src="https://www.youtube.com/embed/f9cG_x5rEoE" loading="lazy" allowfullscreen></iframe>
+  </div>
+  <div class="track">
+    <iframe data-src="https://www.youtube.com/embed/Qlq4fNw7eVw" loading="lazy" allowfullscreen></iframe>
+  </div>
+  <div class="track">
+    <iframe data-src="https://www.youtube.com/embed/8_tNywz_g3E" loading="lazy" allowfullscreen></iframe>
+  </div>
+  <div class="track">
+    <iframe data-src="https://www.youtube.com/embed/rK0RlwyZAW0" loading="lazy" allowfullscreen></iframe>
+  </div>
+  <div class="track">
+    <iframe data-src="https://www.youtube.com/embed/M7lc1UVf-VE" loading="lazy" allowfullscreen></iframe>
+  </div>
+  <div class="track">
+    <iframe data-src="https://www.youtube.com/embed/ljcBWYxpAe4" loading="lazy" allowfullscreen></iframe>
+  </div>
+  <div class="track">
+    <iframe data-src="https://www.youtube.com/embed/-_P7lcxj3GU" loading="lazy" allowfullscreen></iframe>
+  </div>
+  <div class="track">
+    <iframe data-src="https://www.youtube.com/embed/e_-1JrfV_hY" loading="lazy" allowfullscreen></iframe>
+  </div>
+
+  <div class="track">
+    <iframe data-src="https://www.youtube.com/embed/mt9kW8qk3lc" loading="lazy" allowfullscreen></iframe>
+  </div>
+  <div class="track">
+    <iframe data-src="https://www.youtube.com/embed/hv-HOyQrCj4" loading="lazy" allowfullscreen></iframe>
+  </div>
+  <div class="track">
+    <iframe data-src="https://www.youtube.com/embed/7XTfrKY0JKw" loading="lazy" allowfullscreen></iframe>
+  </div>
+  <div class="track">
+    <iframe data-src="https://www.youtube.com/embed/aKHi67TZ3w4" loading="lazy" allowfullscreen></iframe>
+  </div>
+  <div class="track">
+    <iframe data-src="https://www.youtube.com/embed/fyPsLr9HE-U" loading="lazy" allowfullscreen></iframe>
+  </div>
+  <div class="track">
+    <iframe data-src="https://www.youtube.com/embed/IbQK50LB6go" loading="lazy" allowfullscreen></iframe>
+  </div>
+  <div class="track">
+    <iframe data-src="https://www.youtube.com/embed/LGXUXQHAlq0" loading="lazy" allowfullscreen></iframe>
+  </div>
+  <div class="track">
+    <iframe data-src="https://www.youtube.com/embed/2DsSHs-Fm3g" loading="lazy" allowfullscreen></iframe>
+  </div>
+  <div class="track">
+    <iframe data-src="https://www.youtube.com/embed/veXptq1XUKY" loading="lazy" allowfullscreen></iframe>
+  </div>
+  <div class="track">
+    <iframe data-src="https://www.youtube.com/embed/wKt3sPmCqr0" loading="lazy" allowfullscreen></iframe>
   </div>
 </div>
 
-    <div id="premium100" class="track-list" style="display: none; margin-top: 2rem;">
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/9FGilxCbdz8" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/HGKyxNg_4Uw" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/5zYZZwLkV2A" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/6syMu0nE5rY" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/kW6x_HRO0Go" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/Bm3prp6_3PA" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/WbRbRUgo0pY" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/fP6e9XrAplw" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/2C9LU7jOQjQ" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/pKDhdTUb1SU" allowfullscreen></iframe>
-  </div>
-
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/D_gCE_hvR0s" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/W0j9Q0mROkA" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/w7BqQF2TKj0" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/vc9v5l_w3jc" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/FIT1rm4skAc" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/jjMEV5cjWZY" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/Ot5Ah1Mde1w" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/GfRtt-4vBKU" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/N-vocTpkbYA" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/fnLDYiZO3WA" allowfullscreen></iframe>
-  </div>
-
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/hCo5Ov93fpk" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/mgG2fG2vhvY" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/7nV7vBvlDiE" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/Ft9xAkhdC2k" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/knG2L8oyDKI" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/9aU7Imi6C64" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/6f6nlJ-4nHM" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/URpmWxJaqLg" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/xt7yxk04EvQ" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/TGYsyR3I9o8" allowfullscreen></iframe>
-  </div>
-
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/b0PzG4F_Gvo" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/1qkIU6P8P4k" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/O11l3HQE3VU" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/OMU0zU5io9I" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/5c6-EZy2Cjk" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/vFj7L6F2QVk" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/okLYd7iLOHo" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/N4jES08ttLQ" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/qYTRPSB4fPY" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/R3h0d-HROpA" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/R9Qp0c6t5Hg" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/L8gycRHTbqM" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/8QveVZ8c6Gg" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/ULC9vUVXvms" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/t-qI2EcSq3g" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/BKNFKly6TwI" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/9JXoS6HfI3A" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/2iDqvFqZyqw" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/vI8apj8lf-A" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/3qEN-M9xrDU" allowfullscreen></iframe>
-  </div>
-
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/_z7RrN5W5fw" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/jFjcZogSC1o" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/VkXYHtxOjMk" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/h_EC0Gj7zxQ" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/RKgPm-xtNZ0" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/O2-eHoJmSsc" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/kJ7P8xKkj0c" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/z7b-jSLEqAE" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/Dtg_HRxA0Oc" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/0HyUz4y5QIU" allowfullscreen></iframe>
-  </div>
-
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/cH2VfQFtK2s" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/IXOzrN3NL-U" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/f9cG_x5rEoE" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/Qlq4fNw7eVw" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/8_tNywz_g3E" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/rK0RlwyZAW0" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/M7lc1UVf-VE" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/ljcBWYxpAe4" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/-_P7lcxj3GU" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/e_-1JrfV_hY" allowfullscreen></iframe>
-  </div>
-
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/mt9kW8qk3lc" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/hv-HOyQrCj4" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/7XTfrKY0JKw" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/aKHi67TZ3w4" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/fyPsLr9HE-U" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/IbQK50LB6go" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/LGXUXQHAlq0" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/2DsSHs-Fm3g" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/veXptq1XUKY" allowfullscreen></iframe>
-  </div>
-  <div class="track">
-    <iframe src="https://www.youtube.com/embed/wKt3sPmCqr0" allowfullscreen></iframe>
-  </div>
-</div>
-
-
+    </div>
   </section>
 
-  <footer>© 2025 Музыкальный сайт. Все видео легально встроены с YouTube.</footer>
+  <footer>
+    <p>© 2025 Музыкальный сайт. Все права защищены.</p>
+  </footer>
 
   <script>
     feather.replace();
 
     function toggleTheme() {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
-      document.documentElement.setAttribute('data-theme', nextTheme);
+      const current = document.documentElement.getAttribute('data-theme');
+      if (current === 'light') {
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+      }
+      feather.replace();
     }
 
-    const password10 = "20e0Juvy1NtgZe1";
-    const password100 = "UvHY1F4LbenTYdJ";
+    // Восстановление темы из localStorage
+    (function () {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+      }
+      feather.replace();
+    })();
+
+    // Lazy load iframe через Intersection Observer
+    const iframes = document.querySelectorAll('iframe[data-src]');
+
+    if ('IntersectionObserver' in window) {
+      const iframeObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const iframe = entry.target;
+            iframe.src = iframe.dataset.src;
+            iframe.removeAttribute('data-src');
+            observer.unobserve(iframe);
+          }
+        });
+      }, { rootMargin: '200px' });
+
+      iframes.forEach(iframe => iframeObserver.observe(iframe));
+    } else {
+      // fallback — подгрузить сразу
+      iframes.forEach(iframe => {
+        iframe.src = iframe.dataset.src;
+        iframe.removeAttribute('data-src');
+      });
+    }
 
     function checkPassword() {
-      const input = document.getElementById('passwordInput').value.trim();
+      const pass = document.getElementById('passwordInput').value.trim().toLowerCase();
+      const premium10 = document.getElementById('premium10');
+      const premium100 = document.getElementById('premium100');
 
-      if (input === password10) {
-        document.getElementById('premium10').style.display = 'grid';
-        alert("✅ Открыт доступ к 10 трекам!");
-      } else if (input === password100) {
-        document.getElementById('premium100').style.display = 'grid';
-        alert("✅ Открыт доступ к 100 трекам!");
+      if (pass === 'demo10') {
+        premium10.style.display = 'grid';
+        premium100.style.display = 'none';
+        alert('Доступ к 10 премиум трекам открыт!');
+      } else if (pass === 'demo100') {
+        premium100.style.display = 'grid';
+        premium10.style.display = 'none';
+        alert('Доступ к 100 премиум трекам открыт!');
       } else {
-        alert("❌ Неверный пароль. Проверьте и попробуйте снова.");
+        alert('Неверный пароль. Пожалуйста, проверьте и попробуйте снова.');
+        premium10.style.display = 'none';
+        premium100.style.display = 'none';
       }
     }
   </script>
