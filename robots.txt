@@ -1,4 +1,4 @@
 User-agent: *
-Disallow: /admin/
-Disallow: /temp/
+Disallow:
+
 Sitemap: https://waterfood0.github.io/Siteofmusic/sitemap.xml
